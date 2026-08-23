@@ -237,7 +237,7 @@ CREATE TABLE RTP8_BOOKS
 AS
 	SELECT * 
 	FROM BOOKS
-	WHERE RENTAL_PRICE>8
+	WHERE RENTAL_PRICE>8;
 
 SELECT * FROM RTP8_BOOKS;
 ```
@@ -278,31 +278,23 @@ ORDER BY 1;
 
 **Task 14: Update Book Status on Return**  
 Write a query to update the status of books in the books table to "Yes" when they are returned (based on entries in the return_status table).
-
-
 ```sql
 -- Store Procedure
-
 -- Declaring a Function:
 CREATE OR REPLACE PROCEDURE Add_Returned_Records(p_return_id VARCHAR(10), p_issued_id VARCHAR(15), p_book_quality VARCHAR(15)) -- 'p' Defines Parameters
 LANGUAGE plpgsql
 AS $$
-
 DECLARE
 	-- All the declarations of variables, which are used in the procedure
 	v_isbn VARCHAR(50); 								-- DECLARING A VARIABLE 
 	v_book_name VARCHAR(75);							 -- DECLARING A VARIABLE 
-
 BEGIN
 	-- All the logic of the code
-
 	-- 1. AS-SOON-AS someone returns the book, it should be inserted in return_status FIRST!
 	INSERT INTO RETURN_STATUS(RETURN_ID,ISSUED_ID,RETURN_DATE,BOOK_QUALITY)
 	VALUES
 		(p_return_id, p_issued_id, CURRENT_DATE, p_book_quality); -- NO '' WILL BE USED, BECAUSE THEY ARE PARAMETERS, NOT VALUES
-
 	-- 2. UPDATING IN THE BOOKS TABLE, IF 'NOT AVAILABLE' SET TO 'AVAILABLE'
-
 	SELECT 
 		ISSUED_BOOK_ISBN,
 		ISSUED_BOOK_NAME
@@ -312,14 +304,10 @@ BEGIN
 		FROM ISSUED_STATUS
 		WHERE ISSUED_ID = p_issued_id; 						-- ASSIGNING ISSUED_ID TO ISSUED_ID FROM(UP-SIDE) INSERT VALUE I.E,. PARAMETER ISSUED_ID
 	-- UPDATING
-	
 	UPDATE BOOKS		
 	SET STATUS = 'yes'
 	WHERE ISBN = v_isbn;
-
 	RAISE NOTICE 'THANK YOU FOR RETURNING THE BOOK: %', v_book_name;
-
-		
 END;
 $$
 
@@ -327,23 +315,21 @@ $$
 CALL Add_Returned_Records() -- Calling the function
 
 -- TESTING (VERIFYING) Function Add_Returned_Records: WITH A RECORD WHICH WAS NOT YET RETURNED.
-
 SELECT * FROM ISSUED_STATUS
-WHERE ISSUED_BOOK_ISBN = '978-0-375-41398-8'
+WHERE ISSUED_BOOK_ISBN = '978-0-375-41398-8';
 
 SELECT * FROM BOOKS
 WHERE STATUS = 'no'
+ISSUED_ID = 'IS135';
 
-ISSUED_ID = 'IS135'
-
-SELECT * FROM RETURN_STATUS
+SELECT * FROM RETURN_STATUS;
 
 SELECT * FROM RETURN_STATUS
 WHERE ISSUED_ID = 'IS134';	-- NEXT RETURN ID SHOULD BE RS120
 
-
 -- TESTING Function:
 CALL Add_Returned_Records('RS120','IS135', 'Good');		-- PASSING 3 PARAMETERS
+
 CALL Add_Returned_Records('RS121', 'IS134', 'Good'); 		-- PASSING 3 PARAMETERS
 
 ```
@@ -355,7 +341,6 @@ CALL Add_Returned_Records('RS121', 'IS134', 'Good'); 		-- PASSING 3 PARAMETERS
 Create a query that generates a performance report for each branch, showing the number of books issued, the number of books returned, and the total revenue generated from book rentals.
 
 ```sql
-
 CREATE TABLE branch_reports
 AS
 SELECT
@@ -383,7 +368,6 @@ SELECT * FROM branch_reports;
 Use the CREATE TABLE AS (CTAS) statement to create a new table active_members containing members who have issued at least one book in the last 2 months.
 
 ```sql
-
 CREATE TABLE Active_Members
 AS
 SELECT 
@@ -394,7 +378,6 @@ WHERE MEMBER_ID IN (
 						DISTINCT ISSUED_MEMBER_ID
 					FROM ISSUED_STATUS
 					WHERE  ISSUED_DATE >= CURRENT_DATE - INTERVAL '6 MONTH ');
-
 SELECT * FROM ACTIVE_MEMBERS;
 
 ```
@@ -428,11 +411,9 @@ If the book is available, it should be issued, and the status in the books table
 If the book is not available (status = 'no'), the procedure should return an error message indicating that the book is currently not available.
 
 ```sql
-
 CREATE OR REPLACE PROCEDURE Issue_Book(p_iss_id VARCHAR(15), p_iss_mem_id VARCHAR(10), p_iss_book_isbn VARCHAR(25), p_emp_id VARCHAR(10))
 LANGUAGE plpgsql
 AS $$
-
 DECLARE
 -- DECLARE VARIABLES
 	v_status VARCHAR(15);
@@ -445,29 +426,21 @@ BEGIN
 		v_status
 	FROM BOOKS
 	WHERE ISBN = p_iss_book_isbn;
-
 	IF v_status = 'yes' THEN
 		INSERT INTO ISSUED_STATUS(ISSUED_ID,ISSUED_MEMBER_ID, ISSUED_DATE, ISSUED_BOOK_ISBN, ISSUED_EMP_ID)
 		VALUES
 		(p_iss_id,p_iss_mem_id, CURRENT_DATE, p_iss_book_isbn,p_emp_id);
-
 		UPDATE BOOKS		
 		SET STATUS = 'no'
 		WHERE ISBN = p_iss_book_isbn;
-			
 		RAISE NOTICE 'Book record added successfully. Book ISBN: %', p_iss_book_isbn;
-
 	ELSE
 		RAISE NOTICE 'Sorry to inform you that the book you have requested is currently unavailable';
-
-
 	END IF;
-
 END;
 $$
 
 --  TESTING THE FUNCTION:
-
 SELECT * FROM ISSUED_STATUS
 ORDER BY 1;
 
@@ -479,8 +452,6 @@ SELECT * FROM EMPLOYEES;
 -- NEXT IS155, C120, 978-1-60129-456-2, E108
 -- ISBN 978-1-60129-456-2 --> YES
 -- ISBN 978-0-7432-7357-1  --> NO
-
-
 CALL Issue_Book('IS155', 'C120','978-1-60129-456-2', 'E108');
 
 CALL Issue_Book('IS156', 'C121','978-0-7432-7357-1', 'E109');
@@ -506,7 +477,7 @@ This project demonstrates the application of SQL skills in creating and managing
 
 1. **Clone the Repository**: Clone this repository to your local machine.
    ```sh
-  [[ git clone [https://github.com/najirh/Library-System-Management---P2.git]]
+   git clone [https://github.com/najirh/Library-System-Management---P2.git
    ```
 
 2. **Set Up the Database**: Execute the SQL scripts in the `database_setup.sql` file to create and populate the database.
