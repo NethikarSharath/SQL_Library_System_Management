@@ -488,12 +488,16 @@ This project demonstrates the application of SQL skills in creating and managing
 
 2. **Set Up the Database**: Execute the SQL scripts in the `database_setup.sql` file to create and populate the database.
 3. **Run the Queries**: Use the SQL queries in the `analysis_queries.sql` file to perform the analysis.
-4. **Explore and Modify**: Customize the queries as needed to explore different aspects of the data or answer additional questions.
 
-## Author - Zero Analyst
 
-This project showcases SQL skills essential for database management and analysis. For more content on SQL and data analysis, connect with me through the following channels:
+## Author - Nethikar Sharath
 
-- **LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/najirr)
+This project is part of my portfolio, showcasing the SQL skills essential for data analyst roles. If you have any questions or any feedback, feel free to get in touch!
 
-Thank you for your interest in this project!
+### Stay connected and join me:
+
+- **LinkedIn**: [Connect with me professionally](www.linkedin.com/in/nethikar-sharath-2442a2322)
+
+
+Thank you , and I look forward to connecting with you!
+
