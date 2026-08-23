@@ -490,7 +490,9 @@ This project is part of my portfolio, showcasing the SQL skills essential for da
 
 ### Stay connected and join me:
 
-- **LinkedIn**: [Connect with me professionally](www.linkedin.com/in/nethikar-sharath-2442a2322)
+- 📧 **Email:** [nethikarsharath@gmail.com](mailto:nethikarsharath@gmail.com)
+- 💼 **LinkedIn:** [Connect with me on LinkedIn](https://www.linkedin.com/in/nethikar-sharath-2442a2322/)
+
 
 
 Thank you , and I look forward to connecting with you!
